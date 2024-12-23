@@ -1,0 +1,312 @@
+package Forward;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
+public class forward {
+	WebDriver driver;
+	ExtentHtmlReporter htmlReporter;
+	ExtentReports extent;
+
+	String extentReportImage = System.getProperty("user.dir")+ "extentReportImage.png";
+	@BeforeSuite
+	public void StartTest() {
+	htmlReporter = new ExtentHtmlReporter("Forward.html");
+	extent = new ExtentReports();
+	extent.attachReporter(htmlReporter);
+	}
+	@Test
+	public void test2() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "/home/tvisha/Documents/chrome/chromedriver_linux64/chromedriver");
+		driver=new ChromeDriver();
+		driver.get("http://192.168.2.55:8081/login");
+		driver.findElement(By.xpath("//input[@name='email']")).sendKeys("abcd@gmail.com");
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("sai@123");
+		driver.findElement(By.xpath("//button[@id='bG9naW5CdG4']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@data-name='New user1']")).click();
+		Thread.sleep(1000);
+		WebElement s = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]"));
+		Actions a=new Actions(driver);
+		a.moveToElement(s).contextClick().perform();
+		Thread.sleep(1000);
+		WebElement e=driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]/div/div[2]"));
+		Actions ac=new Actions(driver);
+		ac.doubleClick(e).perform();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id=\"forwardMessageSendBtn\"]")).click();
+		driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[1]/div[3]/label")).click();
+		driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[3]/div[3]/label")).click();
+		driver.findElement(By.xpath("//*[@id=\"modalForwardSendMessageBtn\"]")).click();
+		ExtentTest test = extent.createTest("Forward button for multiple users");
+		test.log(Status.INFO, "Chrome Browser Launched Successfully");
+		test.info("Navigate to URL");
+		test.info("Email:abcd@gmail.com");
+		test.info("Password:sai@123");
+		test.info("Login:Click on Login");
+		test.info("User:Select any user");
+		test.info("Message:Select any message");
+		test.info("Right click on message");
+		test.info("Forward:Click on forward");
+		test.info("Select  multiple users");
+		test.info("Click on send button");
+		test.info("EXPECTED RESULT:: System should display the message to particular users");
+		String actual=driver.findElement(By.xpath("//div[@data-name='Myself']")).getText();
+		String actual1=driver.findElement(By.xpath("//div[@data-name='Mysuser']")).getText();
+		Assert.assertEquals(actual, "Myself","hi");
+		Assert.assertEquals(actual1, "Mysuser","hi");
+		test.log(Status.PASS, actual1);
+		test.log(Status.PASS, actual);
+		//test.log(Status.PASS,"ACTUAL RESULT:: The message has displayed to particular users");
+		test.pass("Test Case:: TestCase PASSED");
+		Thread.sleep(1000);
+		driver.close();
+	}
+	@Test
+	public void test1() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "/home/tvisha/Documents/chrome/chromedriver_linux64/chromedriver");
+		driver=new ChromeDriver();
+		driver.get("http://192.168.2.55:8081/login");
+		driver.findElement(By.xpath("//input[@name='email']")).sendKeys("abcd@gmail.com");
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("sai@123");
+		driver.findElement(By.xpath("//button[@id='bG9naW5CdG4']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@data-name='New user1']")).click();
+		Thread.sleep(1000);
+		WebElement s = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]"));
+		Actions a=new Actions(driver);
+		a.moveToElement(s).contextClick().perform();
+		Thread.sleep(1000);
+		WebElement e=driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]/div/div[2]"));
+		Actions ac=new Actions(driver);
+		ac.doubleClick(e).perform();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id=\"forwardMessageSendBtn\"]")).click();
+		driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[1]/div[3]/label")).click();
+		//driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[3]/div[3]/label")).click();
+		driver.findElement(By.xpath("//*[@id=\"modalForwardSendMessageBtn\"]")).click();
+		ExtentTest test = extent.createTest("Forward button for single users");
+		test.log(Status.INFO, "Chrome Browser Launched Successfully");
+		test.info("Navigate to URL");
+		test.info("Email:abcd@gmail.com");
+		test.info("Password:sai@123");
+		test.info("Login:Click on Login");
+		test.info("User:Select any user");
+		test.info("Message:Select any message");
+		test.info("Right click on message");
+		test.info("Forward:Click on forward");
+		test.info("Select any user");
+		test.info("Click on send button");
+		test.info("EXPECTED RESULT:: System should display the message to particular user");
+		String actual=driver.findElement(By.xpath("//div[@data-name='Myself']")).getText();
+		Assert.assertEquals(actual, "Myself","hi");
+		//test.log(Status.PASS, actual1);
+		test.log(Status.PASS, actual);
+		//test.log(Status.PASS,"ACTUAL RESULT:: The message has displayed to particular user");
+		test.pass("Test Case:: TestCase PASSED");
+		Thread.sleep(1000);
+		driver.close();
+	}
+	@Test
+	public void test() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "/home/tvisha/Documents/chrome/chromedriver_linux64/chromedriver");
+		driver=new ChromeDriver();
+		driver.get("http://192.168.2.55:8081/login");
+		driver.findElement(By.xpath("//input[@name='email']")).sendKeys("abcd@gmail.com");
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("sai@123");
+		driver.findElement(By.xpath("//button[@id='bG9naW5CdG4']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@data-name='New user1']")).click();
+		Thread.sleep(1000);
+		WebElement s = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]"));
+		Actions a=new Actions(driver);
+		a.moveToElement(s).contextClick().perform();
+		Thread.sleep(1000);
+		WebElement e=driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]/div/div[2]"));
+		Actions ac=new Actions(driver);
+		ac.doubleClick(e).perform();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id=\"forwardMessageSendBtn\"]")).click();
+		//driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[1]/div[3]/label")).click();
+		//driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[3]/div[3]/label")).click();
+		driver.findElement(By.xpath("//*[@id=\"modalForwardSendMessageBtn\"]")).click();
+		ExtentTest test = extent.createTest("Forward button without users");
+		test.log(Status.INFO, "Chrome Browser Launched Successfully");
+		test.info("Navigate to URL");
+		test.info("Email:abcd@gmail.com");
+		test.info("Password:sai@123");
+		test.info("Login:Click on Login");
+		test.info("User:Select any user");
+		test.info("Message:Select any message");
+		test.info("Right click on message");
+		test.info("Forward:Click on forward");
+		test.info("Don't select any user");
+		test.info("Click on send button");
+		test.info("EXPECTED RESULT:: System should display the message to particular user");
+		//String actual=driver.findElement(By.id("feedbackSection")).getText();
+		//Assert.assertEquals(actual, "Please select atleast one user");
+		test.log(Status.PASS,"ACTUAL RESULT:: Please select atleast one user");
+		test.pass("Test Case:: TestCase PASSED");
+		Thread.sleep(1000);
+		driver.close();
+	}
+	@Test
+	public void test3() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "/home/tvisha/Documents/chrome/chromedriver_linux64/chromedriver");
+		driver=new ChromeDriver();
+		driver.get("http://192.168.2.55:8081/login");
+		driver.findElement(By.xpath("//input[@name='email']")).sendKeys("abcd@gmail.com");
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("sai@123");
+		driver.findElement(By.xpath("//button[@id='bG9naW5CdG4']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@data-name='New user1']")).click();
+		Thread.sleep(1000);
+		WebElement s = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]"));
+		Actions a=new Actions(driver);
+		a.moveToElement(s).contextClick().perform();
+		Thread.sleep(1000);
+		WebElement e=driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]/div/div[2]"));
+		Actions ac=new Actions(driver);
+		ac.doubleClick(e).perform();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id=\"forwardMessageSendBtn\"]")).click();
+		driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[1]/div[3]/label")).click();
+		driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[3]/div[3]/label")).click();
+		driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[2]/div[3]/label")).click();
+		driver.findElement(By.xpath("//*[@id=\"modalForwardSendMessageBtn\"]")).click();
+		ExtentTest test = extent.createTest("Forward button for users and groups");
+		test.log(Status.INFO, "Chrome Browser Launched Successfully");
+		test.info("Navigate to URL");
+		test.info("Email:abcd@gmail.com");
+		test.info("Password:sai@123");
+		test.info("Login:Click on Login");
+		test.info("User:Select any user");
+		test.info("Message:Select any message");
+		test.info("Right click on message");
+		test.info("Forward:Click on forward");
+		test.info("Select users and group");
+		test.info("Click on send button");
+		test.info("EXPECTED RESULT:: System should display the message to particular users and groups");
+		String actual=driver.findElement(By.xpath("//div[@data-name='Myself']")).getText();
+		String actual1=driver.findElement(By.xpath("//div[@data-name='fdsafg']")).getText();
+		Assert.assertEquals(actual, "Myself","hi");
+		Assert.assertEquals(actual1, "Fdsafg");
+		test.log(Status.PASS, actual1);
+		test.log(Status.PASS, actual);
+		//test.log(Status.PASS,"ACTUAL RESULT:: The message has displayed to particular users and groups");
+		test.pass("Test Case:: TestCase PASSED");
+		Thread.sleep(1000);
+		driver.close();
+	}
+	@Test
+	public void test4() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "/home/tvisha/Documents/chrome/chromedriver_linux64/chromedriver");
+		driver=new ChromeDriver();
+		driver.get("http://192.168.2.55:8081/login");
+		driver.findElement(By.xpath("//input[@name='email']")).sendKeys("abcd@gmail.com");
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("sai@123");
+		driver.findElement(By.xpath("//button[@id='bG9naW5CdG4']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@data-name='New user1']")).click();
+		Thread.sleep(1000);
+		WebElement s = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]"));
+		Actions a=new Actions(driver);
+		a.moveToElement(s).contextClick().perform();
+		Thread.sleep(1000);
+		WebElement e=driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]/div/div[2]"));
+		Actions ac=new Actions(driver);
+		ac.doubleClick(e).perform();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id=\"forwardMessageSendBtn\"]")).click();
+		//driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[1]/div[3]/label")).click();
+		//driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[3]/div[3]/label")).click();
+		driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[2]/div[3]/label")).click();
+		driver.findElement(By.xpath("//*[@id=\"modalForwardSendMessageBtn\"]")).click();
+		ExtentTest test = extent.createTest("Forward button for single group");
+		test.log(Status.INFO, "Chrome Browser Launched Successfully");
+		test.info("Navigate to URL");
+		test.info("Email:abcd@gmail.com");
+		test.info("Password:sai@123");
+		test.info("Login:Click on Login");
+		test.info("User:Select any user");
+		test.info("Message:Select any message");
+		test.info("Right click on message");
+		test.info("Forward:Click on forward");
+		test.info("Select single group");
+		test.info("Click on send button");
+		test.info("EXPECTED RESULT:: System should display the message to particular group");
+		String actual1=driver.findElement(By.xpath("//div[@data-name='fdsafg']")).getText();
+		Assert.assertEquals(actual1, "Fdsafg","hi");
+		test.log(Status.PASS, actual1);
+		//test.log(Status.PASS, actual);
+		//test.log(Status.PASS,"ACTUAL RESULT:: The message has displayed to particular group");
+		test.pass("Test Case:: TestCase PASSED");
+		Thread.sleep(1000);
+		driver.close();
+	}
+	@Test
+	public void test5() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "/home/tvisha/Documents/chrome/chromedriver_linux64/chromedriver");
+		driver=new ChromeDriver();
+		driver.get("http://192.168.2.55:8081/login");
+		driver.findElement(By.xpath("//input[@name='email']")).sendKeys("abcd@gmail.com");
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("sai@123");
+		driver.findElement(By.xpath("//button[@id='bG9naW5CdG4']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@data-name='New user1']")).click();
+		Thread.sleep(1000);
+		WebElement s = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]"));
+		Actions a=new Actions(driver);
+		a.moveToElement(s).contextClick().perform();
+		Thread.sleep(1000);
+		WebElement e=driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[11]/div/div/div[2]/div[5]/div[2]/div[2]/div/div[2]"));
+		Actions ac=new Actions(driver);
+		ac.doubleClick(e).perform();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id=\"forwardMessageSendBtn\"]")).click();
+		//driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[1]/div[3]/label")).click();
+		//driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[3]/div[3]/label")).click();
+		driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[2]/div[3]/label")).click();
+		driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[6]/div[1]/div/div/div[2]/div[3]/div[12]/div[3]/label")).click();
+		driver.findElement(By.xpath("//*[@id=\"modalForwardSendMessageBtn\"]")).click();
+		ExtentTest test = extent.createTest("Forward button for multiple groups");
+		test.log(Status.INFO, "Chrome Browser Launched Successfully");
+		test.info("Navigate to URL");
+		test.info("Email:abcd@gmail.com");
+		test.info("Password:sai@123");
+		test.info("Login:Click on Login");
+		test.info("User:Select any user");
+		test.info("Message:Select any message");
+		test.info("Right click on message");
+		test.info("Forward:Click on forward");
+		test.info("Select multiple group");
+		test.info("Click on send button");
+		test.info("EXPECTED RESULT:: System should display the message to particular multiple groups");
+		String actual=driver.findElement(By.xpath("//div[@data-name='fdsafg']")).getText();
+		String actual1=driver.findElement(By.xpath("//div[@data-name='testing']")).getText();
+		Assert.assertEquals(actual, "Fdsafg");
+		Assert.assertEquals(actual1, "Testing");
+		test.log(Status.PASS, actual1);
+		test.log(Status.PASS, actual);
+		//test.log(Status.PASS,"ACTUAL RESULT:: The message has displayed to particular multiple groups");
+		test.pass("Test Case:: TestCase PASSED");
+		Thread.sleep(1000);
+		driver.close();
+	}
+	@AfterSuite
+	public void endTest() {
+		extent.flush();
+	}
+}
